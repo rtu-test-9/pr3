@@ -27,4 +27,9 @@ def test_getPropability():
     assert 2 / 12 == propability0
     assert 1 / 12 == propability1
 
+def test_getDiagnosesCount():
+    dataCopy = data.copy()
+    interviewer = Interviewer()
+    assert 12 == interviewer.getDiagnosesCount(dataCopy)
+
 test_getPropability()

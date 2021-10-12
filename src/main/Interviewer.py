@@ -23,7 +23,14 @@ data = {
 }
 
 class Interviewer:
-        
+
+    def getDiagnosesCount(self, data):
+        count = 0
+        for key in data:
+            if (data[key] != None):
+                count += len(data[key])
+        return count
+
     def getPropability(self, key, data):
         count = 0
         wantedCount = 0
