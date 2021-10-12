@@ -32,4 +32,8 @@ def test_getDiagnosesCount():
     interviewer = Interviewer()
     assert 12 == interviewer.getDiagnosesCount(dataCopy)
 
-test_getPropability()
+def testRunHealthy():
+    #Чтобы выполнить этот тест необходимо отвечать на все вопросы n
+    interviewer = Interviewer()
+    dataCopy = data
+    assert False == interviewer.run(data=dataCopy)

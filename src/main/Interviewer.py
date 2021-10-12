@@ -22,6 +22,16 @@ data = {
     ]
 }
 
+diagnoses = ['Гастрит',
+             'Грибок',
+             'Колит',
+             'Полиомиелит',
+             'Энцефалит',
+             'Сифилис',
+             'Инсульт',
+             'Цистит',
+             'Грибок']
+
 class Interviewer:
 
     def getDiagnosesCount(self, data):
@@ -39,15 +49,36 @@ class Interviewer:
                 wantedCount += 1
             if (data[k] != None):
                 count += len(data[k])
-        return wantedCount/count
+        try:
+            return wantedCount/count
+        except ZeroDivisionError:
+            return 0
 
     def ask(self, key, data):
         print("У вас есть симптом " + str(key) + " ?")
         answer = input()
+        print(answer)
         if (answer == 'y' or answer == 'Y'):
-            data[key] = None
             return data
         elif (answer == 'n' or answer == 'N'):
+            data[key] = None
             return data
         else:
             return None
+
+    def run(self, data):
+        dataCopy = data
+        while(self.getDiagnosesCount(dataCopy) > 1):
+            for key in dataCopy:
+                if (dataCopy[key] != None):
+                    dataCopy = self.ask(key, dataCopy)
+                    print("На данный момент мы оцениваем вероятности диагнозов следующим образом: ")
+                    for diagnos in diagnoses:
+                        print(str(diagnos) + " " + str(self.getPropability(diagnos, dataCopy)*100) + "%")
+        print("Итоговая оценка вероятностей: ")
+        for diagnos in diagnoses:
+            print(str(diagnos) + " " + str(self.getPropability(diagnos, dataCopy)*100) + "%")
+        if (self.getDiagnosesCount(dataCopy) == 1):
+            return True
+        else:
+            return False
