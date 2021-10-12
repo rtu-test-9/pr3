@@ -8,12 +8,23 @@ def test_ask():
     # боль в уретре - любая строка кроме "y", "Y", "n", "N"
 
     interviewer = Interviewer()
-    dataCopy = data.copy()
-    dataCopy["Паралич"] = None
+    dataCopyActual = data.copy()
+    dataCopyExpected = data.copy()
+    dataCopyExpected["Паралич"] = None
 
-    result = interviewer.ask("Паралич", data=data)
-    result = interviewer.ask("Мания преследования", data=data)
-    noneTest = interviewer.ask("Боль в уретре", data=data)
-    assert dataCopy["Паралич"] == result["Паралич"]
-    assert dataCopy["Мания преследования"] == result["Мания преследования"]
+    result = interviewer.ask("Паралич", data=dataCopyActual)
+    result = interviewer.ask("Мания преследования", data=dataCopyActual)
+    noneTest = interviewer.ask("Боль в уретре", data=dataCopyActual)
+    assert dataCopyExpected["Паралич"] == result["Паралич"]
+    assert dataCopyExpected["Мания преследования"] == result["Мания преследования"]
     assert None == noneTest
+
+def test_getPropability():
+    dataCopy = data.copy()
+    interviewer = Interviewer()
+    propability0 = interviewer.getPropability("Инсульт", dataCopy)
+    propability1 = interviewer.getPropability("Гастрит", dataCopy)
+    assert 2 / 12 == propability0
+    assert 1 / 12 == propability1
+
+test_getPropability()

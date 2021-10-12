@@ -1,30 +1,39 @@
 #Словарь в формате симптом - болезни
 data = {
-    "Черный язык": {
+    "Черный язык": [
         "Гастрит",
         "Грибок",
         "Колит"
-    },
-    "Паралич": {
+    ],
+    "Паралич": [
         "Полиомиелит",
         "Энцефалит",
         "Клещевой",
         "Энцефалит",
         "Сифилис",
         "Инсульт"
-    },
-    "Мания преследования": {
+    ],
+    "Мания преследования": [
         "Инсульт",
-        ""
-    },
-    "Боль в уретре": {
+    ],
+    "Боль в уретре": [
         "Цистит",
         "Грибок"
-    }
+    ]
 }
 
 class Interviewer:
-    field = []
+        
+    def getPropability(self, key, data):
+        count = 0
+        wantedCount = 0
+        for k in data:
+            if (data[k] != None and key in data[k]):
+                wantedCount += 1
+            if (data[k] != None):
+                count += len(data[k])
+        return wantedCount/count
+
     def ask(self, key, data):
         print("У вас есть симптом " + str(key) + " ?")
         answer = input()
