@@ -1,3 +1,5 @@
+from contracts import contract
+
 #Словарь в формате симптом - болезни
 data = {
     "Черный язык": [
@@ -34,6 +36,7 @@ diagnoses = ['Гастрит',
 
 class Interviewer:
 
+    @contract(data='dict')
     def getDiagnosesCount(self, data):
         count = 0
         for key in data:
@@ -41,6 +44,7 @@ class Interviewer:
                 count += len(data[key])
         return count
 
+    @contract(key='str', data='dict')
     def getPropability(self, key, data):
         count = 0
         wantedCount = 0
@@ -54,6 +58,7 @@ class Interviewer:
         except ZeroDivisionError:
             return 0
 
+    @contract(key='str', data='dict')
     def ask(self, key, data):
         print("У вас есть симптом " + str(key) + " ?")
         answer = input()
@@ -65,7 +70,7 @@ class Interviewer:
             return data
         else:
             return None
-
+    @contract(data='dict', returns='bool')
     def run(self, data):
         dataCopy = data
         while(self.getDiagnosesCount(dataCopy) > 1):
